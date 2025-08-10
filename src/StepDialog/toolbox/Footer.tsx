@@ -1,7 +1,14 @@
 import { Button, DialogActions } from "@mui/material";
-import type { ToolboxComponentProps } from "../types";
+import type { StepLayoutProps } from "../types";
+import type { CSSProperties, ReactNode } from "react";
 
-export const Footer = (props: ToolboxComponentProps) => {
+export type FooterProps = StepLayoutProps & {
+  children?: ReactNode;
+  leftButtonStyles?: { css?: CSSProperties; disabled?: boolean };
+  rightButtonStyles?: { css?: CSSProperties; disabled?: boolean };
+};
+
+export const Footer = (props: FooterProps) => {
   const {
     children,
     onCancel,
@@ -10,18 +17,28 @@ export const Footer = (props: ToolboxComponentProps) => {
     onSubmit,
     stepIndex,
     stepsAmount,
+    rightButtonStyles,
+    leftButtonStyles,
   } = props;
 
   const isFirstStep = stepIndex === 0;
   const isLastStep = stepIndex === stepsAmount - 1;
 
   const RightButton = () => (
-    <Button onClick={isFirstStep ? onCancel : onPrevious}>
+    <Button
+      style={rightButtonStyles?.css}
+      disabled={rightButtonStyles?.disabled}
+      onClick={isFirstStep ? onCancel : onPrevious}
+    >
       {isFirstStep ? "ביטול" : "חזרה"}
     </Button>
   );
   const LeftButton = () => (
-    <Button onClick={isLastStep ? onSubmit : onNext}>
+    <Button
+      style={leftButtonStyles?.css}
+      disabled={leftButtonStyles?.disabled}
+      onClick={isLastStep ? onSubmit : onNext}
+    >
       {isLastStep ? "שמירה" : "המשך"}
     </Button>
   );

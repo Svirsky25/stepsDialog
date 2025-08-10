@@ -17,6 +17,7 @@ export const Layout = ({
   const [errors, setErrors] = useState<string[]>([]);
 
   const name = watch("name");
+  const leftButtonStyles = name?.length < 3 ? { disabled: true } : {};
 
   const handleOnNext = async () => {
     const isValid = await validateFields();
@@ -48,9 +49,8 @@ export const Layout = ({
         onSubmit={onSubmit}
         stepIndex={stepIndex}
         stepsAmount={stepsAmount}
-      >
-        <div>Skibidi</div>
-      </Footer>
+        leftButtonStyles={leftButtonStyles}
+      ></Footer>
     </div>
   );
 };
