@@ -6,7 +6,7 @@ export const firstStep = {
   id: "first",
   title: "first step",
   validationSchema: z.object({
-    name: z.string().min(0, "name is required").default("Bob"),
+    name: z.string().min(3, "Name must be at least 3 characters long"),
   }),
   layout: Layout,
 } satisfies Step;
