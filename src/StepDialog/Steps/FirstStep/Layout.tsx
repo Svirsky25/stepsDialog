@@ -1,3 +1,4 @@
+import type { firstStep } from ".";
 import { useStepForm } from "../../hooks/useStepForm";
 import type { StepLayoutProps } from "../../types";
 
@@ -7,13 +8,16 @@ export const Layout = ({
   stepIndex,
   stepsAmount,
 }: StepLayoutProps) => {
-  const { register } = useStepForm();
+  const { register, getValues } = useStepForm<typeof firstStep>();
+
+  const { name } = getValues();
 
   return (
     <div>
       <h2>
         Step {stepIndex + 1} of {stepsAmount}
       </h2>
+      <h4>This is the name! {name}</h4>
       <input {...register("name")} placeholder="Enter your name" />
 
       <button type="button" onClick={onPrevious}>

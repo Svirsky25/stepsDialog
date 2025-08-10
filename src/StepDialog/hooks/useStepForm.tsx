@@ -1,26 +1,29 @@
-import { useFormContext, type RegisterOptions } from "react-hook-form";
-import type z from "zod";
+// useStepForm.ts
+import { useFormContext, type UseFormReturn } from "react-hook-form";
+import type { z } from "zod";
 import type { Step } from "../types";
 
-/** Minimal wrapper around RHF's FormContext. */
-export const useStepForm = <S extends Step>() => {
-  const methods = useFormContext();
+/** (A | B) -> (A & B) */
+type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
+  k: infer I
+) => void
+  ? I
+  : never;
 
-  type Fields = keyof z.infer<S["validationSchema"]> & string;
+type ValuesOfSingleStep<S extends Step> = z.infer<S["validationSchema"]>;
 
-  const register = <K extends Fields>(name: K, options?: RegisterOptions) =>
-    methods.register(name as string, options);
+type ValuesOfStepsArray<TSteps extends readonly Step[]> = z.infer<
+  TSteps[number]["validationSchema"]
+>;
 
-  const getValues = <K extends Fields | Fields[] | undefined>(name?: K) =>
-    methods.getValues(name as any);
+export type AllFormValues<T extends Step | readonly Step[]> = T extends Step
+  ? ValuesOfSingleStep<T>
+  : T extends readonly Step[]
+  ? UnionToIntersection<ValuesOfStepsArray<T>>
+  : never;
 
-  const watch = <K extends Fields | Fields[] | undefined>(name?: K) =>
-    methods.watch(name as any);
-
-  return {
-    ...methods,
-    register,
-    getValues,
-    watch,
-  };
-};
+export function useStepForm<T extends Step | readonly Step[]>(): UseFormReturn<
+  AllFormValues<T>
+> {
+  return useFormContext<AllFormValues<T>>();
+}
