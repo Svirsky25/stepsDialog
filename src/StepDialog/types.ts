@@ -1,9 +1,16 @@
 import type React from "react";
-import type z from "zod";
+import type { ZodObject, ZodRawShape } from "zod";
+
+export type StepLayoutProps = {
+  onNext: () => void;
+  onPrevious: () => void;
+  stepIndex: number;
+  stepsAmount: number;
+};
 
 export type Step = {
   id: string;
   title: string;
-  validationSchema: z.ZodObject<any>;
-  layout: React.FC;
+  validationSchema: ZodObject<ZodRawShape>;
+  layout: React.FC<StepLayoutProps>;
 };
