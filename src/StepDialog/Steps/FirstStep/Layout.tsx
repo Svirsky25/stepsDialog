@@ -1,4 +1,4 @@
-import { useFormContext } from "react-hook-form";
+import { useStepForm } from "../../hooks/useStepForm";
 import type { StepLayoutProps } from "../../types";
 
 export const Layout = ({
@@ -7,7 +7,7 @@ export const Layout = ({
   stepIndex,
   stepsAmount,
 }: StepLayoutProps) => {
-  const { register } = useFormContext();
+  const { register } = useStepForm();
 
   return (
     <div>
