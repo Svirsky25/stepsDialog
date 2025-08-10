@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { Step } from "./types";
 
 type StepDialogProps = {
@@ -21,7 +21,7 @@ export const StepDialog = (props: StepDialogProps) => {
   };
 
   const currentStep = steps[stepIndex];
-  const CurrentStepLayout = currentStep.layout;
+  const CurrentStepLayout = useMemo(() => currentStep.layout, [currentStep]);
 
   return (
     <>

@@ -9,9 +9,10 @@ export const steps = [
     validationSchema: z.object({
       name: z.string().min(0, "name is required"),
     }),
-    layout: () => (
+    layout: ({ onNext }) => (
       <Typography variant="h1" component="h2">
         This is the First Step!
+        <button onClick={onNext}>Next</button>
       </Typography>
     ),
   },
@@ -19,11 +20,12 @@ export const steps = [
     id: "second",
     title: "second step",
     validationSchema: z.object({
-      name: z.string().min(0, "name is required"),
+      age: z.number().min(4, "Age must be at least 4").default(8),
     }),
-    layout: () => (
+    layout: ({ onPrevious }) => (
       <Typography variant="h1" component="h2">
         This is the Second Step!
+        <button onClick={onPrevious}>Previous</button>
       </Typography>
     ),
   },
