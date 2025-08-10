@@ -49,7 +49,8 @@ export const Layout = ({
         onSubmit={onSubmit}
         stepIndex={stepIndex}
         stepsAmount={stepsAmount}
-        leftButtonStyles={leftButtonStyles}
+        labels={{ next: "יאללה" }}
+        nextButtonProps={leftButtonStyles}
       ></Footer>
     </div>
   );

@@ -1,11 +1,28 @@
-import { Button, DialogActions } from "@mui/material";
+import { DialogActions, Button, type ButtonProps } from "@mui/material";
 import type { StepLayoutProps } from "../types";
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
+
+const defaultLabels = {
+  cancel: "ביטול",
+  back: "חזרה",
+  next: "המשך",
+  submit: "שמירה",
+} as const;
 
 export type FooterProps = StepLayoutProps & {
   children?: ReactNode;
-  leftButtonStyles?: { css?: CSSProperties; disabled?: boolean };
-  rightButtonStyles?: { css?: CSSProperties; disabled?: boolean };
+  /** Full MUI control over both buttons */
+  backButtonProps?: ButtonProps;
+  nextButtonProps?: ButtonProps;
+  /** i18n/labels */
+  labels?: {
+    cancel?: string;
+    back?: string;
+    next?: string;
+    submit?: string;
+  };
+  /** UX toggles */
+  hideBackOnFirst?: boolean;
 };
 
 export const Footer = (props: FooterProps) => {
@@ -17,37 +34,61 @@ export const Footer = (props: FooterProps) => {
     onSubmit,
     stepIndex,
     stepsAmount,
-    rightButtonStyles,
-    leftButtonStyles,
+    backButtonProps,
+    nextButtonProps,
+    hideBackOnFirst,
   } = props;
+
+  const isValidIndex =
+    Number.isFinite(stepIndex) &&
+    Number.isFinite(stepsAmount) &&
+    stepsAmount! > 0;
+  if (!isValidIndex) {
+    // fail-safe: render nothing to avoid incorrect actions
+    return null;
+  }
 
   const isFirstStep = stepIndex === 0;
   const isLastStep = stepIndex === stepsAmount - 1;
 
-  const RightButton = () => (
-    <Button
-      style={rightButtonStyles?.css}
-      disabled={rightButtonStyles?.disabled}
-      onClick={isFirstStep ? onCancel : onPrevious}
-    >
-      {isFirstStep ? "ביטול" : "חזרה"}
-    </Button>
-  );
-  const LeftButton = () => (
-    <Button
-      style={leftButtonStyles?.css}
-      disabled={leftButtonStyles?.disabled}
-      onClick={isLastStep ? onSubmit : onNext}
-    >
-      {isLastStep ? "שמירה" : "המשך"}
-    </Button>
-  );
+  const canGoBack = isFirstStep ? !!onCancel : !!onPrevious;
+  const canGoNext = isLastStep ? !!onSubmit : !!onNext;
+
+  const handleBack = isFirstStep ? onCancel : onPrevious;
+  const handleNext = isLastStep ? onSubmit : onNext;
+
+  const mergedLabels = { ...defaultLabels, ...props.labels };
+  const backLabel = isFirstStep ? mergedLabels.cancel : mergedLabels.back;
+  const nextLabel = isLastStep ? mergedLabels.submit : mergedLabels.next;
 
   return (
-    <DialogActions>
-      <RightButton />
+    <DialogActions sx={{ px: 2, py: 1.5 }}>
+      {/* Back/Cancel */}
+      {!(hideBackOnFirst && isFirstStep) && (
+        <Button
+          onClick={handleBack}
+          disabled={!canGoBack || backButtonProps?.disabled}
+          {...backButtonProps}
+          sx={{ mr: 1, ...(backButtonProps?.sx || {}) }}
+        >
+          {backLabel}
+        </Button>
+      )}
+
       {children}
-      <LeftButton />
+
+      {/* Next/Submit */}
+      <Button
+        onClick={handleNext}
+        disabled={!canGoNext || nextButtonProps?.disabled}
+        // If you later wrap with a <form>, you can do:
+        // type={isLastStep ? "submit" : "button"}
+        {...nextButtonProps}
+        sx={{ ...(nextButtonProps?.sx || {}) }}
+        variant={nextButtonProps?.variant ?? "contained"}
+      >
+        {nextLabel}
+      </Button>
     </DialogActions>
   );
 };
