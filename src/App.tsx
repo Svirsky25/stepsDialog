@@ -3,7 +3,7 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { StepDialog } from "./StepDialog/StepDialog";
-import { steps } from "./StepDialog/steps";
+import { steps } from "./StepDialog/Steps";
 
 function App() {
   const [count, setCount] = useState(0);
