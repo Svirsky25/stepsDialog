@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import type { Step } from "./types";
-import { mergeSchemas } from "./utils";
+import { extractStepsDefaultValues, mergeStepsShapes } from "./utils";
 
 type StepDialogProps = {
   steps: Step[];
@@ -15,11 +15,15 @@ export const StepDialog = (props: StepDialogProps) => {
 
   const stepsAmount = steps.length;
 
-  const mergedSchema = useMemo(() => mergeSchemas(steps), [steps]);
+  const mergedShemas = mergeStepsShapes(steps);
+  const defaultValues = extractStepsDefaultValues(steps);
+
+  console.log({ mergedShemas });
+  console.log({ defaultValues });
 
   const form = useForm({
-    resolver: zodResolver(mergedSchema),
-    defaultValues: {}, // we’ll fill this from schema defaults later
+    resolver: zodResolver(mergedShemas),
+    defaultValues: defaultValues,
     mode: "onBlur",
   });
 
