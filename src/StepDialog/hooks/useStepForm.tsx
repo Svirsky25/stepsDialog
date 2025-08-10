@@ -24,11 +24,11 @@ export type AllFormValues<T extends Step | readonly Step[]> = T extends Step
   ? UnionToIntersection<ValuesOfStepsArray<T>>
   : never;
 
-export function useStepForm<T extends Step | readonly Step[]>(): UseFormReturn<
+export const useStepForm = <T extends Step | readonly Step[]>(): UseFormReturn<
   AllFormValues<T>
 > & {
   validateFields: () => Promise<boolean>;
-} {
+} => {
   const methods = useFormContext<AllFormValues<T>>();
 
   const validateFields = async () => {
@@ -41,4 +41,4 @@ export function useStepForm<T extends Step | readonly Step[]>(): UseFormReturn<
   };
 
   return { ...methods, validateFields };
-}
+};
