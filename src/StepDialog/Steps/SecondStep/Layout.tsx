@@ -1,9 +1,12 @@
 import type { secondStep } from ".";
 import { useStepForm } from "../../hooks/useStepForm";
+import { Footer } from "../../toolbox";
 import type { StepLayoutProps } from "../../types";
 
 export const Layout = ({
   onNext,
+  onCancel,
+  onSubmit,
   onPrevious,
   stepIndex,
   stepsAmount,
@@ -23,13 +26,16 @@ export const Layout = ({
         {...register("age", { valueAsNumber: true })}
         placeholder="Enter your age"
       />
-
-      <button type="button" onClick={onPrevious}>
-        Back
-      </button>
-      <button type="button" onClick={onNext}>
-        Next
-      </button>
+      <Footer
+        onNext={onNext}
+        onCancel={onCancel}
+        onPrevious={onPrevious}
+        onSubmit={onSubmit}
+        stepIndex={stepIndex}
+        stepsAmount={stepsAmount}
+      >
+        <div>Skibidi</div>
+      </Footer>
     </div>
   );
 };

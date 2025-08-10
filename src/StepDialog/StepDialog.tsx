@@ -1,6 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMemo, useState } from "react";
+import Dialog from "@mui/material/Dialog";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { DialogRoot } from "./DialogRoot";
 import type { Step } from "./types";
 import { extractStepsDefaultValues, mergeStepsShapes } from "./utils";
 
@@ -11,41 +13,31 @@ type StepDialogProps = {
 export const StepDialog = (props: StepDialogProps) => {
   const { steps } = props;
 
-  const [stepIndex, setStepIndex] = useState(0);
-
-  const stepsAmount = steps.length;
+  const [open, setOpen] = useState(false);
 
   const mergedShemas = mergeStepsShapes(steps);
   const defaultValues = extractStepsDefaultValues(steps);
 
-  console.log({ mergedShemas });
-  console.log({ defaultValues });
-
   const form = useForm({
     resolver: zodResolver(mergedShemas),
     defaultValues: defaultValues,
-    mode: "onBlur",
+    mode: "onChange",
   });
 
-  const onNext = () => {
-    setStepIndex((prev) => Math.min(prev + 1, stepsAmount - 1));
+  const onOpen = () => {
+    setOpen(true);
   };
 
-  const onPrevious = () => {
-    setStepIndex((prev) => Math.max(prev - 1, 0));
+  const onClose = () => {
+    setOpen(false);
   };
-
-  const currentStep = steps[stepIndex];
-  const CurrentStepLayout = useMemo(() => currentStep.layout, [currentStep]);
 
   return (
     <FormProvider {...form}>
-      <CurrentStepLayout
-        stepIndex={stepIndex}
-        stepsAmount={stepsAmount}
-        onNext={onNext}
-        onPrevious={onPrevious}
-      />
+      <button onClick={onOpen}>Open Dialog</button>
+      <Dialog open={open}>
+        <DialogRoot steps={steps} onClose={onClose} />
+      </Dialog>
     </FormProvider>
   );
 };

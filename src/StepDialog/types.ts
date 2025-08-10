@@ -1,11 +1,18 @@
+import type { ReactNode } from "react";
 import type React from "react";
 import type { z, ZodObject, ZodRawShape } from "zod";
 
 export type StepLayoutProps = {
-  onNext: () => void;
-  onPrevious: () => void;
   stepIndex: number;
   stepsAmount: number;
+  onNext: () => void;
+  onCancel: () => void;
+  onSubmit: () => void;
+  onPrevious: () => void;
+};
+
+export type ToolboxComponentProps = StepLayoutProps & {
+  children?: ReactNode;
 };
 
 export type Step<

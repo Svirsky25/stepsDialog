@@ -1,19 +1,22 @@
 import { useState } from "react";
 import type { firstStep } from ".";
 import { useStepForm } from "../../hooks/useStepForm";
+import { Footer } from "../../toolbox";
 import type { StepLayoutProps } from "../../types";
 
 export const Layout = ({
   onNext,
+  onCancel,
+  onSubmit,
   onPrevious,
   stepIndex,
   stepsAmount,
 }: StepLayoutProps) => {
-  const { register, getValues, validateFields, formState } =
+  const { register, validateFields, formState, watch } =
     useStepForm<typeof firstStep>();
   const [errors, setErrors] = useState<string[]>([]);
 
-  const { name } = getValues();
+  const name = watch("name");
 
   const handleOnNext = async () => {
     const isValid = await validateFields();
@@ -38,12 +41,16 @@ export const Layout = ({
       {!!errors.length && <h1 style={{ color: "red" }}>{errors[0]}</h1>}
       <input {...register("name")} placeholder="Enter your name" />
 
-      <button type="button" onClick={onPrevious}>
-        Back
-      </button>
-      <button type="button" onClick={handleOnNext}>
-        Next
-      </button>
+      <Footer
+        onNext={handleOnNext}
+        onCancel={onCancel}
+        onPrevious={onPrevious}
+        onSubmit={onSubmit}
+        stepIndex={stepIndex}
+        stepsAmount={stepsAmount}
+      >
+        <div>Skibidi</div>
+      </Footer>
     </div>
   );
 };
