@@ -10,7 +10,9 @@ type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
   ? I
   : never;
 
-type ValuesOfSingleStep<S extends Step> = z.infer<S["validationSchema"]>;
+type ValuesOfSingleStep<TStep extends Step> = z.infer<
+  TStep["validationSchema"]
+>;
 
 type ValuesOfStepsArray<TSteps extends readonly Step[]> = z.infer<
   TSteps[number]["validationSchema"]
