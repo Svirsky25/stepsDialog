@@ -3,7 +3,7 @@ import type { Step } from "./types";
 import { useStepForm } from "./hooks/useStepForm";
 
 type StepDialogProps = {
-  steps: Step[];
+  steps: ReadonlyArray<Step>;
   onClose: VoidFunction;
 };
 

@@ -7,7 +7,7 @@ import type { Step } from "./types";
 import { extractStepsDefaultValues, mergeStepsShapes } from "./utils";
 
 type StepDialogProps = {
-  steps: Step[];
+  steps: readonly Step[];
 };
 
 export const StepDialog = (props: StepDialogProps) => {
