@@ -25,31 +25,23 @@ export type Step<
   layout: React.FC<StepLayoutProps>;
 };
 
-// export type StepFields<S extends Step> = keyof z.infer<S["validationSchema"]>;
-
-export type StepId<TSteps extends readonly Step[]> = TSteps[number]["id"];
-
-export type StepById<
-  TSteps extends readonly Step[],
-  I extends StepId<TSteps>
-> = Extract<TSteps[number], { id: I }>;
-
-export type StepValues<
-  TSteps extends readonly Step[],
-  I extends StepId<TSteps>
-> = z.infer<StepById<TSteps, I>["validationSchema"]>;
-
-export type StepFields<
-  TSteps extends readonly Step[],
-  I extends StepId<TSteps>
-> = keyof StepValues<TSteps, I> & string;
-
+/** (A | B) -> (A & B) */
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
   k: infer I
 ) => void
   ? I
   : never;
 
-export type AllStepValues<TSteps extends readonly Step[]> = UnionToIntersection<
-  StepValues<TSteps, StepId<TSteps>>
+type ValuesOfSingleStep<TStep extends Step> = z.infer<
+  TStep["validationSchema"]
 >;
+
+type ValuesOfStepsArray<TSteps extends readonly Step[]> = z.infer<
+  TSteps[number]["validationSchema"]
+>;
+
+export type AllFormValues<T extends Step | readonly Step[]> = T extends Step
+  ? ValuesOfSingleStep<T>
+  : T extends readonly Step[]
+  ? UnionToIntersection<ValuesOfStepsArray<T>>
+  : never;

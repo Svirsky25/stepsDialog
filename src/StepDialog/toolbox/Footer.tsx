@@ -11,17 +11,14 @@ const defaultLabels = {
 
 export type FooterProps = Omit<StepLayoutProps, "formMeta"> & {
   children?: ReactNode;
-  /** Full MUI control over both buttons */
   backButtonProps?: ButtonProps;
   nextButtonProps?: ButtonProps;
-  /** i18n/labels */
   labels?: {
     cancel?: string;
     back?: string;
     next?: string;
     submit?: string;
   };
-  /** UX toggles */
   hideBackOnFirst?: boolean;
 };
 

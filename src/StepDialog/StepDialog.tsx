@@ -31,7 +31,6 @@ export const StepDialog = (props: StepDialogProps) => {
   });
 
   const { reset } = form;
-
   const handleClose = () => {
     reset();
     onClose();
