@@ -3,7 +3,7 @@ import { firstStep } from "./FirstStep";
 import { secondStep } from "./SecondStep";
 import { thirdStep } from "./ThirdStep";
 
-export const dialogTitle = "דיאלוג הצעדים";
+export const dialogTitle = "דיאלוג של צעדים";
 
 export const steps = [
   firstStep,
