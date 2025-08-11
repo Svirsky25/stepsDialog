@@ -21,11 +21,7 @@ function App() {
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={dialog.openDialog}>Open Step Dialog</button>
-        <StepDialog
-          title={"step dialog"}
-          steps={steps}
-          {...dialog.dialogProps}
-        />
+        <StepDialog steps={steps} {...dialog.dialogProps} />
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>

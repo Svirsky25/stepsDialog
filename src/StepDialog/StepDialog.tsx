@@ -8,14 +8,13 @@ import type { Step } from "./types";
 import { extractStepsDefaultValues, mergeStepsShapes } from "./utils";
 
 type StepDialogProps = {
-  title: string;
   steps: readonly Step[];
   open: boolean;
   onClose: () => void;
 };
 
 export const StepDialog = (props: StepDialogProps) => {
-  const { title, steps, open, onClose } = props;
+  const { steps, open, onClose } = props;
 
   const mergedShemas = useMemo(() => mergeStepsShapes(steps), [steps]);
   const defaultValues = useMemo(
@@ -41,7 +40,7 @@ export const StepDialog = (props: StepDialogProps) => {
   return (
     <FormProvider {...form}>
       <Dialog open={open}>
-        <DialogRoot title={title} steps={steps} onClose={handleClose} />
+        <DialogRoot steps={steps} onClose={handleClose} />
       </Dialog>
     </FormProvider>
   );

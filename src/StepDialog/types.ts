@@ -2,7 +2,6 @@ import type React from "react";
 import type { z, ZodObject, ZodRawShape } from "zod";
 
 export type FormMeta = {
-  dialogTitle: string;
   stepsTitles: { id: string; title: string }[];
 };
 

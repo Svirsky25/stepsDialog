@@ -3,6 +3,7 @@ import type { firstStep } from ".";
 import { useStepForm } from "../../hooks/useStepForm";
 import { Title, Header, Footer } from "../../toolbox";
 import type { StepLayoutProps } from "../../types";
+import { dialogTitle } from "..";
 
 export const Layout = ({
   onNext,
@@ -36,7 +37,7 @@ export const Layout = ({
 
   return (
     <div>
-      <Title title={formMeta.dialogTitle} />
+      <Title title={dialogTitle} />
       <Header stepIndex={stepIndex} formMeta={formMeta}>
         sKIBIDI
       </Header>

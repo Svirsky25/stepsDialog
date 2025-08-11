@@ -1,4 +1,4 @@
-import type { steps } from "..";
+import { dialogTitle, type steps } from "..";
 import { useStepForm } from "../../hooks/useStepForm";
 import { Header, Title, Footer } from "../../toolbox";
 import type { StepLayoutProps } from "../../types";
@@ -18,7 +18,7 @@ export const Layout = ({
 
   return (
     <div>
-      <Title title={formMeta.dialogTitle} />
+      <Title title={dialogTitle} />
       <Header stepIndex={stepIndex} formMeta={formMeta} />
       <h1>Summary</h1>
       <h2>
