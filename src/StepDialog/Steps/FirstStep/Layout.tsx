@@ -41,7 +41,6 @@ export const Layout = ({
       <h4>This is the name! {name}</h4>
       {!!errors.length && <h1 style={{ color: "red" }}>{errors[0]}</h1>}
       <input {...register("name")} placeholder="Enter your name" />
-
       <Footer
         onNext={handleOnNext}
         onCancel={onCancel}

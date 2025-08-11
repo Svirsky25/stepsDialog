@@ -28,6 +28,7 @@ export const DialogRoot = (props: StepDialogProps) => {
   };
 
   const onSubmit = () => {
+    reset();
     onClose();
   };
 
