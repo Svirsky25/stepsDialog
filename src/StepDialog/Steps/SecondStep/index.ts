@@ -1,4 +1,4 @@
-import z from "zod";
+import { z } from "zod";
 import type { Step } from "../../types";
 import { Layout } from "./Layout";
 
