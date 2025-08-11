@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { useStepForm } from "./hooks/useStepForm";
 import type { FormMeta, Step } from "./types";
 
 type StepDialogProps = {
@@ -22,14 +21,11 @@ export const DialogRoot = (props: StepDialogProps) => {
     setStepIndex((prev) => Math.max(prev - 1, 0));
   };
 
-  const { reset } = useStepForm<typeof steps>();
   const onCancel = () => {
-    reset();
     onClose();
   };
 
   const onSubmit = () => {
-    reset();
     onClose();
   };
 

@@ -11,8 +11,8 @@ export type HeaderProps = Pick<StepLayoutProps, "stepIndex" | "formMeta"> & {
   children?: ReactNode;
 };
 
-const stepTitlesMap = (steps: FormMeta) =>
-  steps.stepsTitles.map((step) => step.title);
+const stepTitlesMap = (formMeta: FormMeta) =>
+  formMeta.stepsTitles.map((step) => step.title);
 
 export const Header = (props: HeaderProps) => {
   const { formMeta, stepIndex, children } = props;
