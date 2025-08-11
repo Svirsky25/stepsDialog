@@ -9,7 +9,7 @@ const defaultLabels = {
   submit: "שמירה",
 } as const;
 
-export type FooterProps = StepLayoutProps & {
+export type FooterProps = Omit<StepLayoutProps, "formMeta"> & {
   children?: ReactNode;
   /** Full MUI control over both buttons */
   backButtonProps?: ButtonProps;

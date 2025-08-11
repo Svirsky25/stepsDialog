@@ -7,11 +7,12 @@ import type { Step } from "./types";
 import { extractStepsDefaultValues, mergeStepsShapes } from "./utils";
 
 type StepDialogProps = {
+  title: string;
   steps: readonly Step[];
 };
 
 export const StepDialog = (props: StepDialogProps) => {
-  const { steps } = props;
+  const { title, steps } = props;
 
   const [open, setOpen] = useState(false);
 
@@ -36,7 +37,7 @@ export const StepDialog = (props: StepDialogProps) => {
     <FormProvider {...form}>
       <button onClick={onOpen}>Open Dialog</button>
       <Dialog open={open}>
-        <DialogRoot steps={steps} onClose={onClose} />
+        <DialogRoot title={title} steps={steps} onClose={onClose} />
       </Dialog>
     </FormProvider>
   );

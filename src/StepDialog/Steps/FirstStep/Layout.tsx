@@ -3,12 +3,15 @@ import type { firstStep } from ".";
 import { useStepForm } from "../../hooks/useStepForm";
 import { Footer } from "../../toolbox";
 import type { StepLayoutProps } from "../../types";
+import { Header } from "../../toolbox/Header";
+import { Title } from "../../toolbox/Title";
 
 export const Layout = ({
   onNext,
   onCancel,
   onSubmit,
   onPrevious,
+  formMeta,
   stepIndex,
   stepsAmount,
 }: StepLayoutProps) => {
@@ -35,6 +38,10 @@ export const Layout = ({
 
   return (
     <div>
+      <Title title={formMeta.dialogTitle} />
+      <Header stepIndex={stepIndex} formMeta={formMeta}>
+        sKIBIDI
+      </Header>
       <h2>
         Step {stepIndex + 1} of {stepsAmount}
       </h2>

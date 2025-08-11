@@ -23,7 +23,7 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <StepDialog steps={steps} />
+        <StepDialog title={"step dialog"} steps={steps} />
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>

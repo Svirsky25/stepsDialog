@@ -1,7 +1,13 @@
 import type React from "react";
 import type { z, ZodObject, ZodRawShape } from "zod";
 
+export type FormMeta = {
+  dialogTitle: string;
+  stepsTitles: { id: string; title: string }[];
+};
+
 export type StepLayoutProps = {
+  formMeta: FormMeta;
   stepIndex: number;
   stepsAmount: number;
   onNext: () => void;
