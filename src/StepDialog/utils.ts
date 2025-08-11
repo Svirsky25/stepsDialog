@@ -1,15 +1,18 @@
-import { z, type ZodRawShape } from "zod";
+import { z } from "zod";
 import type { Step } from "./types";
 
 export const mergeStepsShapes = (steps: ReadonlyArray<Step>) => {
   const mergedShape: Record<string, z.ZodTypeAny> = {};
-
-  steps.forEach((step) => {
+  for (const step of steps) {
     const shape = step.validationSchema.shape as Record<string, z.ZodTypeAny>;
-    Object.assign(mergedShape, shape);
-  });
-
-  return z.object(mergedShape as ZodRawShape);
+    for (const key of Object.keys(shape)) {
+      if (process.env.NODE_ENV !== "production" && mergedShape[key]) {
+        throw new Error(`Duplicate field key across steps: "${key}"`);
+      }
+      mergedShape[key] = shape[key];
+    }
+  }
+  return z.object(mergedShape);
 };
 
 export const extractStepsDefaultValues = (steps: ReadonlyArray<Step>) => {
