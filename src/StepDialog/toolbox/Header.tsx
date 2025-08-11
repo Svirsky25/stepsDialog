@@ -2,7 +2,8 @@ import {
   Box,
   DialogContent,
   Typography,
-  type TypographyStyle,
+  type SxProps,
+  type Theme,
 } from "@mui/material";
 import type { ReactNode } from "react";
 import type { FormMeta, StepLayoutProps } from "../types";
@@ -19,19 +20,25 @@ export const Header = (props: HeaderProps) => {
 
   const stepTitles = stepTitlesMap(formMeta);
 
-  const styles: TypographyStyle = {
-    fontWeight: "bold",
+  const styles: SxProps<Theme> = {
+    fontWeight: 600,
     textDecoration: "underline",
     textUnderlinePosition: "under",
   };
 
   return (
     <DialogContent>
-      <Box display={"flex"} flexDirection={"row"} gap={2}>
-        {stepTitles.map((title, index) => {
-          const isCurrentStep = index === stepIndex;
+      <Box display="flex" gap={2}>
+        {stepTitles.map((title, i) => {
+          const isCurrent = i === stepIndex;
           return (
-            <Typography sx={isCurrentStep ? styles : {}}>{title}</Typography>
+            <Typography
+              key={`${formMeta.stepsTitles[i]?.id ?? i}`} // add key
+              sx={isCurrent ? styles : undefined}
+              aria-current={isCurrent ? "step" : undefined}
+            >
+              {title}
+            </Typography>
           );
         })}
       </Box>
