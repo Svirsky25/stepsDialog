@@ -1,10 +1,8 @@
 import { useState } from "react";
 import type { firstStep } from ".";
 import { useStepForm } from "../../hooks/useStepForm";
-import { Footer } from "../../toolbox";
+import { Title, Header, Footer } from "../../toolbox";
 import type { StepLayoutProps } from "../../types";
-import { Header } from "../../toolbox/Header";
-import { Title } from "../../toolbox/Title";
 
 export const Layout = ({
   onNext,

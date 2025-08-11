@@ -1,6 +1,6 @@
 import { DialogTitle } from "@mui/material";
 
-type TitleProps = {
+export type TitleProps = {
   title: string;
 };
 

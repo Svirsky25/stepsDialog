@@ -7,7 +7,7 @@ import {
 import type { ReactNode } from "react";
 import type { FormMeta, StepLayoutProps } from "../types";
 
-type HeaderProps = Pick<StepLayoutProps, "stepIndex" | "formMeta"> & {
+export type HeaderProps = Pick<StepLayoutProps, "stepIndex" | "formMeta"> & {
   children?: ReactNode;
 };
 

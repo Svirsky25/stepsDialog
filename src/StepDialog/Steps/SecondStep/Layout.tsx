@@ -1,8 +1,6 @@
 import type { secondStep } from ".";
 import { useStepForm } from "../../hooks/useStepForm";
-import { Footer } from "../../toolbox";
-import { Header } from "../../toolbox/Header";
-import { Title } from "../../toolbox/Title";
+import { Title, Header, Footer } from "../../toolbox";
 import type { StepLayoutProps } from "../../types";
 
 export const Layout = ({
