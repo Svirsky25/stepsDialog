@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Dialog from "@mui/material/Dialog";
 import { useMemo } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm, type Mode } from "react-hook-form";
 import type { z } from "zod";
 import { DialogRoot } from "./DialogRoot";
 import type { Step } from "./types";
@@ -11,10 +11,11 @@ type StepDialogProps = {
   steps: readonly Step[];
   open: boolean;
   onClose: () => void;
+  mode?: Mode;
 };
 
 export const StepDialog = (props: StepDialogProps) => {
-  const { steps, open, onClose } = props;
+  const { steps, open, onClose, mode } = props;
 
   const mergedShemas = useMemo(() => mergeStepsShapes(steps), [steps]);
   const defaultValues = useMemo(
@@ -27,7 +28,7 @@ export const StepDialog = (props: StepDialogProps) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(mergedShemas),
     defaultValues,
-    mode: "onSubmit",
+    mode: mode || "onSubmit",
   });
 
   const { reset } = form;
