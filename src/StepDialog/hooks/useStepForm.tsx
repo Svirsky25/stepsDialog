@@ -15,7 +15,9 @@ export const useStepForm = <T extends Step | readonly Step[]>(): UseFormReturn<
       const values = methods.getValues() || {};
       const keys = Object.keys(values) as Path<AllFormValues<T>>[];
       // If no keys (edge case), validate whole form
-      return keys.length ? await methods.trigger(keys) : await methods.trigger();
+      return keys.length
+        ? await methods.trigger(keys)
+        : await methods.trigger();
     } catch (error) {
       // Optionally log error or handle it
       return false;
