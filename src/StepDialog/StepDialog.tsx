@@ -27,7 +27,7 @@ export const StepDialog = (props: StepDialogProps) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(mergedShemas),
     defaultValues,
-    mode: "onChange",
+    mode: "onSubmit",
   });
 
   const { reset } = form;

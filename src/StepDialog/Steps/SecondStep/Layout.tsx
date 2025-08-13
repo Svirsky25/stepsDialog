@@ -1,5 +1,6 @@
 import type { secondStep } from ".";
 import { dialogTitle } from "..";
+import { ControlledField } from "../../formFields/textField";
 import { useStepForm } from "../../hooks/useStepForm";
 import { Title, Header, Footer } from "../../toolbox";
 import type { StepLayoutProps } from "../../types";
@@ -13,7 +14,7 @@ export const Layout = ({
   stepIndex,
   stepsAmount,
 }: StepLayoutProps) => {
-  const { register, getValues } = useStepForm<typeof secondStep>();
+  const { control, getValues } = useStepForm<typeof secondStep>();
 
   const { age } = getValues();
 
@@ -25,10 +26,12 @@ export const Layout = ({
         Step {stepIndex + 1} of {stepsAmount}
       </h2>
       <h4>This is the age! {age}</h4>
-      <input
+      <ControlledField
+        control={control}
+        name="age"
+        label="Age"
         type="number"
-        {...register("age", { valueAsNumber: true })}
-        placeholder="Enter your age"
+        fullWidth
       />
       <Footer
         onNext={onNext}
