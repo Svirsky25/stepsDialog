@@ -25,7 +25,6 @@ export const Layout = ({
       <h2>
         Step {stepIndex + 1} of {stepsAmount}
       </h2>
-      <h4>This is the age! {age}</h4>
       <ControlledField
         control={control}
         name="age"
@@ -40,9 +39,7 @@ export const Layout = ({
         onSubmit={onSubmit}
         stepIndex={stepIndex}
         stepsAmount={stepsAmount}
-      >
-        <div>Skibidi</div>
-      </Footer>
+      />
     </div>
   );
 };

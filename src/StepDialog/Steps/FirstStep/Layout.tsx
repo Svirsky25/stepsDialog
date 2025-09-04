@@ -37,15 +37,11 @@ export const Layout = ({
 
   return (
     <div>
-      {/* <Title title={dialogTitle} /> */}
-      <Header stepIndex={stepIndex} formMeta={formMeta}>
-        sKIBIDI
-      </Header>
+      <Header stepIndex={stepIndex} formMeta={formMeta} />
       <h2>
         Step {stepIndex + 1} of {stepsAmount}
       </h2>
-      <h4>This is the name! {name}</h4>
-      {!!errors.length && <h1 style={{ color: "red" }}>{errors[0]}</h1>}
+      {!!errors.length && <div style={{ color: "red" }}>{errors[0]}</div>}
       <ControlledField control={control} name="name" label="Name" fullWidth />
       <Footer
         onNext={handleOnNext}
@@ -54,9 +50,8 @@ export const Layout = ({
         onSubmit={onSubmit}
         stepIndex={stepIndex}
         stepsAmount={stepsAmount}
-        labels={{ next: "יאללה" }}
         nextButtonProps={leftButtonStyles}
-      ></Footer>
+      />
     </div>
   );
 };

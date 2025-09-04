@@ -24,7 +24,6 @@ export const Layout = ({
       <h2>
         {name} is {age} years old.
       </h2>
-      <h3>Welcome to the club.</h3>
       <Footer
         onNext={onNext}
         onCancel={onCancel}
@@ -32,9 +31,7 @@ export const Layout = ({
         onSubmit={onSubmit}
         stepIndex={stepIndex}
         stepsAmount={stepsAmount}
-      >
-        <div>Skibidi</div>
-      </Footer>
+      />
     </div>
   );
 };
