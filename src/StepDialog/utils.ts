@@ -1,7 +1,7 @@
 import { z } from "zod";
 import type { Step } from "./types";
 
-export const mergeStepsShapes = (steps: ReadonlyArray<Step>) => {
+export const mergeStepsShapes = (steps: readonly Step[]) => {
   const mergedShape: Record<string, z.ZodTypeAny> = {};
 
   for (const step of steps) {
@@ -19,7 +19,7 @@ export const mergeStepsShapes = (steps: ReadonlyArray<Step>) => {
   return z.object(mergedShape);
 };
 
-export const extractStepsDefaultValues = (steps: ReadonlyArray<Step>) => {
+export const extractStepsDefaultValues = (steps: readonly Step[]) => {
   return steps.reduce<Record<string, unknown>>((acc, step) => {
     // Convert schema to partial, so fields without defaults won't throw errors
     const partialSchema = step.validationSchema.partial();

@@ -10,7 +10,7 @@ import { extractStepsDefaultValues, mergeStepsShapes } from "./utils";
 type StepDialogProps = {
   steps: readonly Step[];
   open: boolean;
-  onClose: () => void;
+  onClose: VoidFunction;
   mode?: Mode;
 };
 

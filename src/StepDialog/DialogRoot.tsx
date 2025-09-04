@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import type { FormMeta, Step } from "./types";
 
 type StepDialogProps = {
-  steps: ReadonlyArray<Step>;
+  steps: readonly Step[];
   onClose: VoidFunction;
 };
 

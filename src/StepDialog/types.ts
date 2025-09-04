@@ -9,10 +9,10 @@ export type StepLayoutProps = {
   formMeta: FormMeta;
   stepIndex: number;
   stepsAmount: number;
-  onNext: () => void;
-  onCancel: () => void;
-  onSubmit: () => void;
-  onPrevious: () => void;
+  onNext: VoidFunction;
+  onCancel: VoidFunction;
+  onSubmit: VoidFunction;
+  onPrevious: VoidFunction;
 };
 
 export type Step<
