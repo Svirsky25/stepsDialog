@@ -1,7 +1,6 @@
 import { dialogTitle, type steps } from "..";
-import { useStepForm } from "../../hooks/useStepForm";
-import { Header, Title, Footer } from "../../toolbox";
-import type { StepLayoutProps } from "../../types";
+import { useStepForm, Header, Title, Footer } from "steps-dialog";
+import type { StepLayoutProps } from "steps-dialog";
 
 export const Layout = ({
   onCancel,

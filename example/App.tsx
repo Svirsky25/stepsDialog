@@ -1,7 +1,6 @@
 import "./App.css";
-import { StepDialog } from "./StepDialog/StepDialog";
-import { steps } from "./StepDialog/Steps";
-import { useStepDialog } from "./StepDialog/hooks/useStepDialog";
+import { StepDialog, useStepDialog } from "steps-dialog";
+import { steps } from "./Steps";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 

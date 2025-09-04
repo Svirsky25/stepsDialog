@@ -1,9 +1,7 @@
 import { useState } from "react";
 import type { firstStep } from ".";
-import { ControlledField } from "../../formFields/textField";
-import { useStepForm } from "../../hooks/useStepForm";
-import { Footer, Header } from "../../toolbox";
-import type { StepLayoutProps } from "../../types";
+import { ControlledField, useStepForm, Footer, Header } from "steps-dialog";
+import type { StepLayoutProps } from "steps-dialog";
 
 export const Layout = ({
   onNext,

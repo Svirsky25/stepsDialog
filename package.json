@@ -1,13 +1,43 @@
 {
   "name": "steps-dialog",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A flexible and customizable multi-step dialog component for React",
   "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "vite --config example/vite.config.ts",
+    "build": "tsc && vite build --config vite.lib.config.ts",
+    "build:example": "vite build --config example/vite.config.ts",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview --config example/vite.config.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "react",
+    "dialog",
+    "modal",
+    "stepper",
+    "form",
+    "multi-step",
+    "wizard",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",

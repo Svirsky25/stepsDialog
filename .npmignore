@@ -1,0 +1,15 @@
+example/
+src/
+*.md
+*.json
+!package.json
+!dist/package.json
+vite.*.ts
+tsconfig.*.json
+.git/
+.gitignore
+node_modules/
+.npmignore
+eslint.config.js
+pnpm-lock.yaml
+pnpm-workspace.yaml
