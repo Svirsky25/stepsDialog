@@ -27,7 +27,7 @@ export function ControlledField<
           {...field}
           {...props}
           error={!!fieldState.error}
-          helperText={fieldState.error?.message}
+          helperText={fieldState.error ? fieldState.error.message : undefined}
         />
       )}
     />

@@ -64,9 +64,9 @@ export const Footer = (props: FooterProps) => {
       {!(hideBackOnFirst && isFirstStep) && (
         <Button
           onClick={handleBack}
-          disabled={!canGoBack || backButtonProps?.disabled}
+          disabled={!canGoBack || (backButtonProps ? backButtonProps.disabled : false)}
           {...backButtonProps}
-          sx={{ mr: 1, ...(backButtonProps?.sx || {}) }}
+          sx={{ mr: 1, ...(backButtonProps && backButtonProps.sx ? backButtonProps.sx : {}) }}
         >
           {backLabel}
         </Button>
@@ -77,12 +77,12 @@ export const Footer = (props: FooterProps) => {
       {/* Next/Submit */}
       <Button
         onClick={handleNext}
-        disabled={!canGoNext || nextButtonProps?.disabled}
+        disabled={!canGoNext || (nextButtonProps ? nextButtonProps.disabled : false)}
         // If you later wrap with a <form>, you can do:
         // type={isLastStep ? "submit" : "button"}
         {...nextButtonProps}
-        sx={{ ...(nextButtonProps?.sx || {}) }}
-        variant={nextButtonProps?.variant ?? "contained"}
+        sx={{ ...(nextButtonProps && nextButtonProps.sx ? nextButtonProps.sx : {}) }}
+        variant={nextButtonProps && nextButtonProps.variant !== undefined ? nextButtonProps.variant : "contained"}
       >
         {nextLabel}
       </Button>

@@ -1,7 +1,7 @@
 // useStepForm.ts
 import { useFormContext, type Path, type UseFormReturn } from "react-hook-form";
 import type { AllFormValues, Step } from "../types";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 
 export const useStepForm = <T extends Step | readonly Step[]>(): UseFormReturn<
   AllFormValues<T>
@@ -10,7 +10,7 @@ export const useStepForm = <T extends Step | readonly Step[]>(): UseFormReturn<
 } => {
   const methods = useFormContext<AllFormValues<T>>();
 
-  const validateFields = async (): Promise<boolean> => {
+  const validateFields = useCallback(async (): Promise<boolean> => {
     try {
       const values = methods.getValues() || {};
       const keys = Object.keys(values) as Path<AllFormValues<T>>[];
@@ -22,7 +22,7 @@ export const useStepForm = <T extends Step | readonly Step[]>(): UseFormReturn<
       // Optionally log error or handle it
       return false;
     }
-  };
+  }, [methods]);
 
   // Memoize returned object for performance
   return useMemo(
@@ -30,6 +30,6 @@ export const useStepForm = <T extends Step | readonly Step[]>(): UseFormReturn<
       ...methods,
       validateFields,
     }),
-    [methods]
+    [methods, validateFields]
   );
 };

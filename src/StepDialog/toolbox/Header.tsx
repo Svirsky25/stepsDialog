@@ -33,7 +33,7 @@ export const Header = (props: HeaderProps) => {
           const isCurrent = i === stepIndex;
           return (
             <Typography
-              key={`${formMeta.stepsTitles[i]?.id ?? i}`} // add key
+              key={`${formMeta.stepsTitles[i] ? formMeta.stepsTitles[i].id : i}`} // add key
               sx={isCurrent ? styles : undefined}
               aria-current={isCurrent ? "step" : undefined}
             >

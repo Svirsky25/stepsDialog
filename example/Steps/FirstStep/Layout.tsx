@@ -17,7 +17,7 @@ export const Layout = ({
   const [errors, setErrors] = useState<string[]>([]);
 
   const name = watch("name");
-  const leftButtonStyles = name?.length < 3 ? { disabled: true } : {};
+  const leftButtonStyles = (name && name.length < 3) ? { disabled: true } : {};
 
   const handleOnNext = async () => {
     const isValid = await validateFields();
@@ -25,7 +25,7 @@ export const Layout = ({
     if (!isValid) {
       setErrors((prev) => [
         ...prev,
-        formState.errors.name?.message || "unknown error in name",
+        (formState.errors.name ? formState.errors.name.message : undefined) || "unknown error in name",
       ]);
     } else {
       setErrors([]);
