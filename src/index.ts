@@ -1,5 +1,6 @@
 // Main StepDialog component
 export { StepDialog } from './StepDialog/StepDialog';
+export { Step } from './StepDialog/Step';
 
 // Dialog utilities
 export { useStepDialog } from './StepDialog/hooks/useStepDialog';

@@ -1,7 +1,12 @@
-import type { secondStep } from ".";
 import { dialogTitle } from "..";
-import { ControlledField, useStepForm, Title, Header, Footer } from "steps-dialog";
-import type { StepLayoutProps } from "steps-dialog";
+import { ControlledField, useStepForm, Title, Header, Footer, type StepLayoutProps } from "steps-dialog";
+
+type SecondStepProps = {
+  minAge: number;
+  maxAge: number;
+};
+
+type Props = StepLayoutProps & SecondStepProps;
 
 export const Layout = ({
   onNext,
@@ -11,10 +16,10 @@ export const Layout = ({
   formMeta,
   stepIndex,
   stepsAmount,
-}: StepLayoutProps) => {
-  const { control, getValues } = useStepForm<typeof secondStep>();
-
-  const { age } = getValues();
+  minAge,
+  maxAge,
+}: Props) => {
+  const { control } = useStepForm();
 
   return (
     <div>
@@ -23,12 +28,16 @@ export const Layout = ({
       <h2>
         Step {stepIndex + 1} of {stepsAmount}
       </h2>
+      <p style={{ color: "#555", marginBottom: "15px" }}>
+        Please enter your age (between {minAge} and {maxAge} years old)
+      </p>
       <ControlledField
         control={control}
         name="age"
         label="Age"
         type="number"
         fullWidth
+        inputProps={{ min: minAge, max: maxAge }}
       />
       <Footer
         onNext={onNext}

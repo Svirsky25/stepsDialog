@@ -1,22 +1,23 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Dialog from "@mui/material/Dialog";
+import type React from "react";
 import { useMemo } from "react";
 import { FormProvider, useForm, type Mode } from "react-hook-form";
 import type { z } from "zod";
 import { DialogRoot } from "./DialogRoot";
-import type { Step } from "./types";
-import { extractStepsDefaultValues, mergeStepsShapes } from "./utils";
+import { extractStepsDefaultValues, extractStepsFromChildren, mergeStepsShapes } from "./utils";
 
 type StepDialogProps = {
-  steps: readonly Step[];
+  children: React.ReactNode;
   open: boolean;
   onClose: VoidFunction;
   mode?: Mode;
 };
 
 export const StepDialog = (props: StepDialogProps) => {
-  const { steps, open, onClose, mode } = props;
+  const { children, open, onClose, mode } = props;
 
+  const steps = useMemo(() => extractStepsFromChildren(children), [children]);
   const mergedShemas = useMemo(() => mergeStepsShapes(steps), [steps]);
   const defaultValues = useMemo(
     () => extractStepsDefaultValues(steps),
