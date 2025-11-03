@@ -25,6 +25,13 @@ export type Step<
   layout: React.FC<StepLayoutProps>;
 };
 
+export type StepChild = React.ReactElement<{
+  id: string;
+  title: string;
+  validationSchema: ZodObject<ZodRawShape>;
+  children: React.ReactNode;
+}>;
+
 /** (A | B) -> (A & B) */
 type UnionToIntersection<U> = (U extends unknown ? (k: U) => void : never) extends (
   k: infer I
@@ -45,3 +52,16 @@ export type AllFormValues<T extends Step | readonly Step[]> = T extends Step
   : T extends readonly Step[]
   ? UnionToIntersection<ValuesOfStepsArray<T>>
   : never;
+
+// Additional exports needed by index.ts
+export type StepDialogProps = {
+  children: React.ReactNode;
+  open: boolean;
+  onClose: VoidFunction;
+  mode?: "onSubmit" | "onBlur" | "onChange" | "onTouched" | "all";
+};
+
+export type StepMeta = {
+  id: string;
+  title: string;
+};

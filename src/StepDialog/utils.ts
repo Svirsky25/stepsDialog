@@ -1,5 +1,6 @@
 import { z } from "zod";
-import type { Step } from "./types";
+import React from "react";
+import type { Step, StepLayoutProps } from "./types";
 
 export const mergeStepsShapes = (steps: readonly Step[]) => {
   const mergedShape: Record<string, z.ZodTypeAny> = {};
@@ -27,4 +28,35 @@ export const extractStepsDefaultValues = (steps: readonly Step[]) => {
 
     return { ...acc, ...parsed };
   }, {});
+};
+
+export const extractStepsFromChildren = (children: React.ReactNode): Step[] => {
+  const steps: Step[] = [];
+
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement(child) && child.props) {
+      const { id, title, validationSchema, children: jsxElement } = child.props;
+      if (id && title && validationSchema && jsxElement) {
+        // Create a wrapper component that clones the JSX element with the required props
+        const LayoutWrapper: React.FC<StepLayoutProps> = (stepLayoutProps) => {
+          if (React.isValidElement(jsxElement)) {
+            // Clone the JSX element and merge its existing props with StepLayoutProps
+            // StepLayoutProps take priority to ensure proper dialog functionality
+            const existingProps = jsxElement.props || {};
+            return React.cloneElement(jsxElement, { ...existingProps, ...stepLayoutProps });
+          }
+          return jsxElement as React.ReactElement;
+        };
+
+        steps.push({
+          id,
+          title,
+          validationSchema,
+          layout: LayoutWrapper,
+        });
+      }
+    }
+  });
+
+  return steps;
 };

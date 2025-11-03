@@ -1,7 +1,12 @@
 import { useState } from "react";
-import type { firstStep } from ".";
-import { ControlledField, useStepForm, Footer, Header } from "steps-dialog";
-import type { StepLayoutProps } from "steps-dialog";
+import { ControlledField, useStepForm, Footer, Header, type StepLayoutProps } from "steps-dialog";
+
+type FirstStepProps = {
+  customMessage: string;
+  showHint: boolean;
+};
+
+type Props = StepLayoutProps & FirstStepProps;
 
 export const Layout = ({
   onNext,
@@ -11,9 +16,11 @@ export const Layout = ({
   formMeta,
   stepIndex,
   stepsAmount,
-}: StepLayoutProps) => {
+  customMessage,
+  showHint,
+}: Props) => {
   const { control, validateFields, formState, watch } =
-    useStepForm<typeof firstStep>();
+    useStepForm();
   const [errors, setErrors] = useState<string[]>([]);
 
   const name = watch("name");
@@ -39,6 +46,12 @@ export const Layout = ({
       <h2>
         Step {stepIndex + 1} of {stepsAmount}
       </h2>
+      <p style={{ fontStyle: "italic", color: "#666" }}>{customMessage}</p>
+      {showHint && (
+        <div style={{ background: "#f0f8ff", padding: "10px", borderRadius: "4px", marginBottom: "10px" }}>
+          💡 Hint: Make sure your name is at least 4 characters long!
+        </div>
+      )}
       {!!errors.length && <div style={{ color: "red" }}>{errors[0]}</div>}
       <ControlledField control={control} name="name" label="Name" fullWidth />
       <Footer
